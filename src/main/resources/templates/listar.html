@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/index :: head">
+<meta charset="UTF-8">
+<title>Listar</title>
+
+</head>
+<body>
+<nav th:replace="layout/index :: navbar"></nav>
+<div class="container mt-4">
+<div class="row">
+<div class="col-9">
+<h1 class="text-center">Lista de productos</h1>
+
+
+<hr>
+<a class="btn btn-success" th:href="@{/formularioproducto}">Agregar</a>
+
+<table class="table">
+<thead>
+<th>Nombre</th>
+<th>Cantidad</th>
+<th>Estado</th>
+<th>Acciones</th>
+</thead>
+<tbody>
+<tr th:each="pro : ${productos}">
+<td th:text="${pro.nombre}"></td>
+<td th:text="${pro.cantidad}"></td>
+<td th:text="${pro.estado==true ? 'Activo' : 'Inactivo'}"></td>
+<td>
+<a class="btn btn-warning" th:href="@{/editarproducto/} + ${pro.id}">Editar</a> 
+<a class="btn btn-primary" th:href="@{/detalleproductos/} + ${pro.id}">Detalle</a> 
+<a class="btn btn-success" th:if="${pro.estado == false}" th:href="@{/cambioestado/true/} + ${pro.id} ">Activar</a> 
+<a class="btn btn-danger" th:if="${pro.estado == true}" th:href="@{/cambioestado/false/} + ${pro.id} ">Desactivar</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-3 mt-4">
+<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+  <div class="card-header">Total de Productos</div>
+  <div class="card-body text-center">
+    <h1 th:text="${totalproducto}" class="card-title"></h1>
+    
+  </div>
+  
+</div>
+<div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+  <div class="card-header">Suma de precio</div>
+  <div class="card-body text-center">
+    <h1 th:text="${totalprecio}" class="card-title"></h1>
+    
+  </div>
+ 
+  <p ></p>
+  </div>
+  </div>
+  </div>
+</body>
+</html>
